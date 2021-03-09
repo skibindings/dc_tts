@@ -35,7 +35,7 @@ class Hyperparams:
     data = "/"
     # data = "/data/private/voice/kate"
     test_data = 'harvard_sentences.txt'
-    vocab = "E абвгдеёжзийклмнопрстуфхцчшщъыьэюя-," # E: EOS.
+    vocab = "E ,\-абвгдеёжзийклмнопрстуфхцчшщъыьэюя" # E: EOS.
     max_N = 180 # Maximum number of characters.
     max_T = 210 # Maximum number of mel frames.
 
