@@ -40,7 +40,7 @@ def load_data(mode="train"):
 
     if mode=="train":
 		# Parse
-		fpaths, text_lengths, texts = [], [], []
+		fpaths, text_lengths, texts = [],[],[]
 		transcript = os.path.join(hp.data, 'transcript.csv')
 		lines = codecs.open(transcript, 'r', 'utf-8').readlines()
 		for line in lines:
