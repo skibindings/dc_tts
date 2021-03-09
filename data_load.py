@@ -48,7 +48,7 @@ def load_data(mode="train"):
         for line in lines:
             fname, text = line.strip().split("|")
 
-            fpath = os.path.join(hp.data, "wavs", fname + ".wav")
+            fpath = os.path.join(hp.data, fname + ".wav")
             fpaths.append(fpath)
 
             text = text_normalize(text) + "E"  # E: EOS
