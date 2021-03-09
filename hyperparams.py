@@ -32,7 +32,7 @@ class Hyperparams:
     attention_win_size = 3
 
     # data
-    data = "/"
+    data = "../"
     # data = "/data/private/voice/kate"
     test_data = 'harvard_sentences.txt'
     vocab = "E абвгдеёжзийклмнопрстуфхцчшщъыьэюя-," # E: EOS.
