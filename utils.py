@@ -106,18 +106,18 @@ def griffin_lim(spectrogram):
 
     return y
 	
-def fast_modified_griffin_lim(spectrogram):
+def fast_griffin_lim(spectrogram, initial_phase):
+    X_t = None
     X_best = copy.deepcopy(spectrogram)
     for i in range(hp.n_iter):
         if X_t is None:
-            phase = np.random.randn(*X_best.shape)
+            phase = initial_phase
         else:
             X_previous = librosa.stft(X_t, hp.n_fft, hp.hop_length, win_length=hp.win_length)
             phase = np.angle(X_previous)
 
         X_previous = X_best * np.exp(1j * phase)
-        alpha = np.random.normal(0.1,0.4)
-        X_best = spectrogram + (alpha * np.abs(X_previous))
+        X_best = spectrogram + (0.1 * np.abs(X_previous))
         X_t = invert_spectrogram(X_previous)
 
     y = np.real(X_t)
