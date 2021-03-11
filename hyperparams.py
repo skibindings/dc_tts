@@ -41,7 +41,8 @@ class Hyperparams:
 
     # training scheme
     lr = 0.001 # Initial learning rate.
-    logdir = "/content/drive/MyDrive/logdir/"
+    #logdir = "/content/drive/MyDrive/logdir/"
+	logdir = "/content/logdir/"
     sampledir = '/content/drive/MyDrive/gen_samples'
     B = 16 # batch size
     num_iterations = 2000000
