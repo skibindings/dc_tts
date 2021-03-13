@@ -76,14 +76,13 @@ def spectrogram2wav(mag, model):
 
     # de-noramlize
     mag = (np.clip(mag, 0, 1) * hp.max_db) - hp.max_db + hp.ref_db
-	
-    mag-=np.mean(mag)
-    mag/=np.std(mag)
     
     # phase approximation
     phs = np.random.randn(*mag.shape)
     if hp.phase_reconstruction == True:
         mag_to_phs = mag[:,:hp.freq_bins_recon]
+        mag_to_phs-=np.mean(mag_to_phs)
+        mag_to_phs/=np.std(mag_to_phs)
         phs_approx = model.predict(mag_to_phs)
         phs[:,:hp.freq_bins_recon]=phs_approx[:,:]
 		
