@@ -20,6 +20,17 @@ from tqdm import tqdm
 from tensorflow import keras
 from keras.models import Sequential
 from keras.layers import Dense
+from keras import backend as K
+from keras.utils.generic_utils import get_custom_objects
+
+def GLU(x):
+    return K.sigmoid(x) * x
+	
+def custom_loss(y_true, y_pred): 
+    loss = K.cos(y_true - y_pred)
+    loss = -K.sum(loss, axis=1)
+
+    return loss
 
 def synthesize():
     # Load data
@@ -61,7 +72,8 @@ def synthesize():
 
         model = None
         if hp.phase_reconstruction == True:
-            model = keras.models.load_model(hp.phasemodeldir)
+            get_custom_objects().update({'GLU': Activation(GLU)})
+            model = keras.models.load_model(hp.phasemodeldir,custom_objects={ 'loss': penalized_loss(noise) })
         
         # Generate wav files
         if not os.path.exists(hp.sampledir): os.makedirs(hp.sampledir)
