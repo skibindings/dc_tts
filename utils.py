@@ -85,7 +85,7 @@ def spectrogram2wav(mag, model):
     if hp.phase_reconstruction == True:
         mag_to_phs = mag[:,:hp.freq_bins_recon]
         phs_approx = model.predict(mag_to_phs)
-        phs[:,:freq_bins_recon]=phs_approx[:,:]
+        phs[:,:hp.freq_bins_recon]=phs_approx[:,:]
 		
 	# transpose
     mag = mag.T
