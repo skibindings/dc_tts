@@ -64,7 +64,7 @@ def get_spectrograms(fpath):
 
     return mel, mag
 
-def spectrogram2wav(mag):
+def spectrogram2wav(mag, model):
     '''# Generate wave file from linear magnitude spectrogram
 
     Args:
@@ -78,12 +78,22 @@ def spectrogram2wav(mag):
 
     # de-noramlize
     mag = (np.clip(mag, 0, 1) * hp.max_db) - hp.max_db + hp.ref_db
+	
+    mag-=np.mean(mag)
+    mag/=np.std(mag)
+    
+    # phase approximation
+    phs = np.random.randn(*mag.shape)
+    if np.phase_reconstruction == True:
+        mag_to_phs = mag[:hp.freq_bins_recon]
+        phs_approx = model.predict(mag_to_phs)
+        phs[:freq_bins_recon]=phs_approx[:]
 
     # to amplitude
     mag = np.power(10.0, mag * 0.05)
 
     # wav reconstruction
-    wav = fast_griffin_lim(mag**hp.power,np.random.randn(*mag.shape))
+    wav = fast_griffin_lim(mag**hp.power,phs)
 
     # de-preemphasis
     wav = signal.lfilter([1], [1, -hp.preemphasis], wav)

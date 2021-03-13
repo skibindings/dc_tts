@@ -17,6 +17,9 @@ from utils import *
 from data_load import load_data
 from scipy.io.wavfile import write
 from tqdm import tqdm
+from tensorflow import keras
+from keras.models import Sequential
+from keras.layers import Dense
 
 def synthesize():
     # Load data
@@ -56,11 +59,15 @@ def synthesize():
         # Get magnitude
         Z = sess.run(g.Z, {g.Y: Y})
 
+        model = None
+        if hp.phase_reconstruction == True:
+		    model = keras.models.load_model(hp.phasemodeldir)
+		
         # Generate wav files
         if not os.path.exists(hp.sampledir): os.makedirs(hp.sampledir)
         for i, mag in enumerate(Z):
             print("Working on file", i+1)
-            wav = spectrogram2wav(mag)
+            wav = spectrogram2wav(mag,model)
             write(hp.sampledir + "/{}.wav".format(i+1), hp.sr, wav)
 
 if __name__ == '__main__':
