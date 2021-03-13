@@ -22,6 +22,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras import backend as K
 from keras.utils.generic_utils import get_custom_objects
+from keras.layers import Activation
 
 def GLU(x):
     return K.sigmoid(x) * x
