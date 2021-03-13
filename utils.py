@@ -73,8 +73,6 @@ def spectrogram2wav(mag, model):
     Returns:
       wav: A 1-D numpy array.
     '''
-    # transpose
-    mag = mag.T
 
     # de-noramlize
     mag = (np.clip(mag, 0, 1) * hp.max_db) - hp.max_db + hp.ref_db
@@ -88,6 +86,10 @@ def spectrogram2wav(mag, model):
         mag_to_phs = mag[:hp.freq_bins_recon]
         phs_approx = model.predict(mag_to_phs)
         phs[:freq_bins_recon]=phs_approx[:]
+		
+	# transpose
+    mag = mag.T
+    phs = phs.T
 
     # to amplitude
     mag = np.power(10.0, mag * 0.05)
