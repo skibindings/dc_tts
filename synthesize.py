@@ -61,8 +61,8 @@ def synthesize():
 
         model = None
         if hp.phase_reconstruction == True:
-		    model = keras.models.load_model(hp.phasemodeldir)
-		
+            model = keras.models.load_model(hp.phasemodeldir)
+        
         # Generate wav files
         if not os.path.exists(hp.sampledir): os.makedirs(hp.sampledir)
         for i, mag in enumerate(Z):
