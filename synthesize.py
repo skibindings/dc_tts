@@ -23,6 +23,7 @@ from keras.layers import Dense
 from keras import backend as K
 from keras.utils.generic_utils import get_custom_objects
 from keras.layers import Activation
+import keras.losses
 
 def GLU(x):
     return K.sigmoid(x) * x
@@ -74,7 +75,8 @@ def synthesize():
         model = None
         if hp.phase_reconstruction == True:
             #get_custom_objects().update({'GLU': })
-            model = keras.models.load_model(hp.phasemodeldir,custom_objects={ 'loss': custom_loss, 'GLU' : Activation(GLU)})
+            keras.losses.custom_loss = custom_loss
+            model = keras.models.load_model(hp.phasemodeldir,custom_objects={'GLU' : Activation(GLU)})# 'loss': custom_loss, 
         
         # Generate wav files
         if not os.path.exists(hp.sampledir): os.makedirs(hp.sampledir)
