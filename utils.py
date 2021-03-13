@@ -83,7 +83,7 @@ def spectrogram2wav(mag):
     mag = np.power(10.0, mag * 0.05)
 
     # wav reconstruction
-    wav = griffin_lim(mag**hp.power)
+    wav = fast_griffin_lim(mag**hp.power,np.random.randn(*mag.shape))
 
     # de-preemphasis
     wav = signal.lfilter([1], [1, -hp.preemphasis], wav)
@@ -109,7 +109,7 @@ def griffin_lim(spectrogram):
 def fast_griffin_lim(spectrogram, initial_phase):
     X_t = None
     X_best = copy.deepcopy(spectrogram)
-    for i in range(hp.n_iter):
+    for i in range(hp.n_iter_fast):
         if X_t is None:
             phase = initial_phase
         else:

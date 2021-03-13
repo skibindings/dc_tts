@@ -19,6 +19,7 @@ class Hyperparams:
     n_mels = 80  # Number of Mel banks to generate
     power = 1.5  # Exponent for amplifying the predicted magnitude
     n_iter = 50  # Number of inversion iterations
+    n_iter_fast = 30 # Number of inversion iterations for FGLA
     preemphasis = .97
     max_db = 100
     ref_db = 20
