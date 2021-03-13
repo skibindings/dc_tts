@@ -84,7 +84,7 @@ def spectrogram2wav(mag, model):
         mag_to_phs-=np.mean(mag_to_phs)
         mag_to_phs/=np.std(mag_to_phs)
         phs_approx = model.predict(mag_to_phs)
-        phs[:,:hp.freq_bins_recon]=phs_approx[:,:]
+        #phs[:,:hp.freq_bins_recon]=phs_approx[:,:]
 		
 	# transpose
     mag = mag.T
