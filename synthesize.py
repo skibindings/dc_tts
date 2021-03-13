@@ -73,8 +73,8 @@ def synthesize():
 
         model = None
         if hp.phase_reconstruction == True:
-            get_custom_objects().update({'GLU': Activation(GLU)})
-            model = keras.models.load_model(hp.phasemodeldir,custom_objects={ 'loss': custom_loss})
+            #get_custom_objects().update({'GLU': })
+            model = keras.models.load_model(hp.phasemodeldir,custom_objects={ 'loss': custom_loss, 'GLU' : Activation(GLU)})
         
         # Generate wav files
         if not os.path.exists(hp.sampledir): os.makedirs(hp.sampledir)
