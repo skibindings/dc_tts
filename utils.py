@@ -8,6 +8,7 @@ from __future__ import print_function, division
 
 import numpy as np
 import librosa
+import math
 import os, copy
 import matplotlib
 matplotlib.use('pdf')
@@ -75,7 +76,7 @@ def spectrogram2wav(mag, model):
     '''
 	
 	# phase approximation
-    phs = np.random.randn(*mag.shape)
+    phs = np.random.uniform(-math.pi,math.pi,*mag.shape)
     if hp.phase_reconstruction == True:
         mag_temp = np.copy(mag)
         mag_to_phs = mag_temp[:,:hp.freq_bins_recon]
@@ -95,7 +96,7 @@ def spectrogram2wav(mag, model):
     mag = np.power(10.0, mag * 0.05)
 
     # wav reconstruction
-    wav = fast_griffin_lim(mag**hp.power,phs)
+    wav = griffin_lim(mag**hp.power,phs)
 
     # de-preemphasis
     wav = signal.lfilter([1], [1, -hp.preemphasis], wav)
@@ -105,9 +106,10 @@ def spectrogram2wav(mag, model):
 
     return wav.astype(np.float32)
 
-def griffin_lim(spectrogram):
+def griffin_lim(spectrogram, initial_phase):
     '''Applies Griffin-Lim's raw.'''
     X_best = copy.deepcopy(spectrogram)
+    X_best = X_best * np.exp(1j * initial_phase)
     for i in range(hp.n_iter):
         X_t = invert_spectrogram(X_best)
         est = librosa.stft(X_t, hp.n_fft, hp.hop_length, win_length=hp.win_length)
