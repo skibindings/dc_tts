@@ -46,6 +46,6 @@ class Hyperparams:
     lr = 0.001 # Initial learning rate.
     logdir = "/content/drive/MyDrive/logdir/"
     sampledir = '/content/drive/MyDrive/gen_samples'
-    phasemodeldir = "/content/drive/MyDrive/phase_model"
+    phasemodeldir = "/content/drive/MyDrive/phase_model_2.pb"
     B = 16 # batch size
     num_iterations = 2000000
