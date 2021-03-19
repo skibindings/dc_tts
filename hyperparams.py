@@ -24,7 +24,7 @@ class Hyperparams:
     preemphasis = .97
     max_db = 100
     ref_db = 20
-    freq_bins_recon=500
+    freq_bins_recon=250
 
     # Model
     r = 4 # Reduction factor. Do not change this.
