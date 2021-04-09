@@ -8,7 +8,7 @@ class Hyperparams:
     '''Hyper parameters'''
     # pipeline
     prepro = True  # if True, run `python prepro.py` first before running `python train.py`.
-    phase_reconstruction = False
+    phase_reconstruction = True
     
     # signal processing
     sr = 22050  # Sampling rate.
@@ -46,6 +46,6 @@ class Hyperparams:
     lr = 0.001 # Initial learning rate.
     logdir = "/content/drive/MyDrive/logdir/"
     sampledir = '/content/drive/MyDrive/gen_samples'
-    phasemodeldir = "/content/drive/MyDrive/phase_model_2.pb"
+    phasemodeldir = "/content/drive/MyDrive/phase_model_6.pb"
     B = 16 # batch size
     num_iterations = 2000000

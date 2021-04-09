@@ -76,8 +76,8 @@ def spectrogram2wav(mag, model):
     '''
 	
 	# phase approximation
-    #phs = np.random.uniform(-math.pi,math.pi,mag.shape)
-    phs = np.zeros(mag.shape)
+    phs = np.random.uniform(-math.pi,math.pi,mag.shape)
+    #phs = np.zeros(mag.shape)
     if hp.phase_reconstruction == True:
         mag_temp = np.copy(mag)
         mag_to_phs = mag_temp[:,:hp.freq_bins_recon]
