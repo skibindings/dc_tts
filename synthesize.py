@@ -85,6 +85,12 @@ def synthesize():
 
         # Get magnitude
         Z = sess.run(g.Z, {g.Y: Y})
+		
+        fig = plt.Figure()
+        canvas = FigureCanvas(fig)
+        ax = fig.add_subplot(111)
+        p = librosa.display.specshow(Z[0].T, ax=ax, y_axis='log', x_axis='time')
+        fig.savefig(hp.sampledir + '/mag_spec.png')
 
         model = None
         if hp.phase_reconstruction == True:
