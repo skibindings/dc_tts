@@ -80,7 +80,7 @@ def synthesize():
         fig = plt.Figure()
         canvas = FigureCanvas(fig)
         ax = fig.add_subplot(111)
-        p = librosa.display.specshow(Y, ax=ax, y_axis='mel', x_axis='time')
+        p = librosa.display.specshow(Y[0], ax=ax, y_axis='mel', x_axis='time')
         fig.savefig(hp.sampledir + '/mel_spec.png')
 
         # Get magnitude
