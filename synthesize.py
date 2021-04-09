@@ -97,7 +97,7 @@ def synthesize():
         fig = plt.Figure()
         canvas = FigureCanvas(fig)
         ax = fig.add_subplot(111)
-        p = librosa.display.specshow(Z_pre[0].T, hop_length=hp.hop_length, ax=ax, y_axis='log', x_axis='time')
+        p = librosa.display.specshow(Z_pre, hop_length=hp.hop_length, ax=ax, y_axis='log', x_axis='time')
         fig.savefig(hp.sampledir + '/mag_spec.png')
 
         model = None
