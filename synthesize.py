@@ -77,19 +77,27 @@ def synthesize():
             Y[:, j, :] = _Y[:, j, :]
             prev_max_attentions = _max_attentions[:, j]
 
+        Y_pre = Y.T
+        idx = np.argwhere(np.all(Y_pre[..., :] == 0, axis=0))
+        Y_pre = np.delete(Y_pre, idx, axis=1)
+		
         fig = plt.Figure()
         canvas = FigureCanvas(fig)
         ax = fig.add_subplot(111)
-        p = librosa.display.specshow(Y[0].T, hop_length=hp.hop_length, ax=ax, y_axis='mel', x_axis='time')
+        p = librosa.display.specshow(Y_pre, hop_length=hp.hop_length, ax=ax, y_axis='mel', x_axis='time')
         fig.savefig(hp.sampledir + '/mel_spec.png')
 
         # Get magnitude
         Z = sess.run(g.Z, {g.Y: Y})
 		
+        Z_pre = Z.T
+        idx = np.argwhere(np.all(Z_pre[..., :] == 0, axis=0))
+        Z_pre = np.delete(Z_pre, idx, axis=1)
+		
         fig = plt.Figure()
         canvas = FigureCanvas(fig)
         ax = fig.add_subplot(111)
-        p = librosa.display.specshow(Z[0].T, hop_length=hp.hop_length, ax=ax, y_axis='log', x_axis='time')
+        p = librosa.display.specshow(Z_pre[0].T, hop_length=hp.hop_length, ax=ax, y_axis='log', x_axis='time')
         fig.savefig(hp.sampledir + '/mag_spec.png')
 
         model = None
