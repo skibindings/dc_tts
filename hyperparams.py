@@ -8,7 +8,7 @@ class Hyperparams:
     '''Hyper parameters'''
     # pipeline
     prepro = True  # if True, run `python prepro.py` first before running `python train.py`.
-    phase_reconstruction = False
+    phase_reconstruction = True
     
     # signal processing
     sr = 22050  # Sampling rate.
