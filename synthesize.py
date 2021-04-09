@@ -25,6 +25,14 @@ from keras.utils.generic_utils import get_custom_objects
 from keras.layers import Activation
 import keras.losses
 
+import matplotlib.pyplot as plt
+import librosa.display
+
+import pandas as pd
+import librosa
+
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
 def GLU(x):
     return K.sigmoid(x) * x
 	
@@ -68,6 +76,12 @@ def synthesize():
                           g.prev_max_attentions: prev_max_attentions})
             Y[:, j, :] = _Y[:, j, :]
             prev_max_attentions = _max_attentions[:, j]
+
+        fig = plt.Figure()
+        canvas = FigureCanvas(fig)
+        ax = fig.add_subplot(111)
+        p = librosa.display.specshow(Y, ax=ax, y_axis='mel', x_axis='time')
+        fig.savefig(hp.sampledir + '/mel_spec.png')
 
         # Get magnitude
         Z = sess.run(g.Z, {g.Y: Y})
