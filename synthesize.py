@@ -77,7 +77,7 @@ def synthesize():
             Y[:, j, :] = _Y[:, j, :]
             prev_max_attentions = _max_attentions[:, j]
 
-        Y_pre = Y.T
+        Y_pre = Y[0].T
         idx = np.argwhere(np.all(Y_pre[..., :] == 0, axis=0))
         Y_pre = np.delete(Y_pre, idx, axis=1)
 		
@@ -90,7 +90,7 @@ def synthesize():
         # Get magnitude
         Z = sess.run(g.Z, {g.Y: Y})
 		
-        Z_pre = Z.T
+        Z_pre = Z[0].T
         idx = np.argwhere(np.all(Z_pre[..., :] == 0, axis=0))
         Z_pre = np.delete(Z_pre, idx, axis=1)
 		
