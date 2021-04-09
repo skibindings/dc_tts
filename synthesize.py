@@ -78,7 +78,7 @@ def synthesize():
             prev_max_attentions = _max_attentions[:, j]
 
         Y_pre = Y[0].T
-        idx = np.argwhere(np.all(Y_pre[..., :] == 0, axis=0))
+        idx = np.argwhere(np.all(Y_pre[..., :] < 0.1, axis=0))
         Y_pre = np.delete(Y_pre, idx, axis=1)
 		
         fig = plt.Figure()
@@ -91,7 +91,7 @@ def synthesize():
         Z = sess.run(g.Z, {g.Y: Y})
 		
         Z_pre = Z[0].T
-        idx = np.argwhere(np.all(Z_pre[..., :] == 0, axis=0))
+        idx = np.argwhere(np.all(Z_pre[..., :] < 0.1, axis=0))
         Z_pre = np.delete(Z_pre, idx, axis=1)
 		
         fig = plt.Figure()
