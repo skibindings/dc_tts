@@ -22,6 +22,8 @@ def load_vocab():
     return char2idx, idx2char
 
 def text_normalize(text):
+    if text[-1] == '.':
+	    text = text[:-1] # remove last dot
     text = ''.join(char for char in unicodedata.normalize('NFD', text)
                            if unicodedata.category(char) != 'Mn') # Strip accents
 
