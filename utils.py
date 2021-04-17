@@ -97,7 +97,7 @@ def spectrogram2wav(mag, model):
     mag = np.power(10.0, mag * 0.05)
 
     # wav reconstruction
-    wav = fast_griffin_lim(mag**hp.power,phs)
+    wav = griffin_lim(mag**hp.power,phs)
 
     # de-preemphasis
     wav = signal.lfilter([1], [1, -hp.preemphasis], wav)
